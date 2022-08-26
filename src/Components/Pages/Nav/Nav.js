@@ -10,6 +10,35 @@ import {
 } from './style';
 
 export default class Nav extends React.Component {
+  state = {
+    movies: [],
+    moviesFilter: [],
+    series: [],
+    seriesFilter: [],
+  };
+
+  handleMoviesFilter = (event) => {
+    const listFilteredMovies = this.state.movies.filter((item) => {
+      if (item.title.toLowerCase().includes(event.target.value.toLowerCase())) {
+        return true;
+      } else {
+        return '';
+      }
+    });
+    this.setState({ moviesFilter: listFilteredMovies });
+  };
+
+  handleSeriesFilter = (event) => {
+    const listFilteredSeries = this.state.series.filter((item) => {
+      if (item.title.toLowerCase().includes(event.target.value.toLowerCase())) {
+        return true;
+      } else {
+        return '';
+      }
+    });
+    this.setState({ seriesFilter: listFilteredSeries });
+  };
+
   render() {
     return (
       <ContainerNav>
@@ -30,7 +59,11 @@ export default class Nav extends React.Component {
         <Search>
           <div>
             <label htmlFor="search">Pesquisar</label>
-            <BoxSearch type="text" id="search" />
+            <BoxSearch
+              type="text"
+              id="search"
+              onChange={this.handleMoviesFilter && this.handleSeriesFilter}
+            />
           </div>
           <BtnLogin id="submit"></BtnLogin>
         </Search>
